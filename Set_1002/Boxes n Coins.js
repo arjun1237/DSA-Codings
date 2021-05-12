@@ -30,17 +30,3 @@ if (process.env.USER === "arjun1237") {
 		process.exit(0);
 	});
 }
-
-
-
-promises = []
-
-for(let i=0; i<num; i++){
-    promises.push(await Model.findByIDAnd())
-}
-
-Promise.allSettled(promises).then(res => res.forEach(r) => {
-    if(r.status === "rejected"){
-
-    }
-})
