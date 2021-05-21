@@ -1,27 +1,26 @@
 function runProgram(input) {
     input = input.trim().split('\n')
 
-    for(let i=0; i<input.length; i++){
-        let num = +input[i]
+    let [n, r] = input[0].trim().split(' ').map(Number)
+    let arr = input[1].trim().split(' ').map(Number)
+    let cache = false
+    recur(0, 0, [])
+    console.log(cache ? "Party" : "No Party")
 
-		let cache = []
-        console.log(recur(num))
-
-		function recur(n){
-			if(n < 4) return n
-			if(cache[n] !== undefined) return cache[n]
-			
-			let val = Math.max(Math.floor(n/2), recur(Math.floor(n/2)))
-					+ Math.max(Math.floor(n/3), recur(Math.floor(n/3))) 
-					+ Math.max(Math.floor(n/4), recur(Math.floor(n/4)))
-	
-			return cache[n] = Math.max(val, n)
-		}
+    function recur(idx, val, combo){
+        if(cache || val === r) {
+            cache = true
+            return
+        }
+        if(idx === n || val > r) return
+        
+        recur(idx + 1, val + arr[idx], [...combo, arr[idx]])
+        recur(idx + 1, val, combo)
     }
 }
 if (process.env.USER === "arjun1237") {
-	runProgram(`45
-    2`);
+	runProgram(`6 9
+    3 34 4 12 5 2`);
 } else {
 	process.stdin.resume();
 	process.stdin.setEncoding("ascii");

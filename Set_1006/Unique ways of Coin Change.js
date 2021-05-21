@@ -1,27 +1,23 @@
 function runProgram(input) {
     input = input.trim().split('\n')
 
-    for(let i=0; i<input.length; i++){
-        let num = +input[i]
+    let [n, m] = input[0].trim().split(' ').map(Number)
+    let arr = input[1].trim().split(' ').map(Number)
 
-		let cache = []
-        console.log(recur(num))
+    let cache = new Array(m).fill().map(el => new Array(n + 1).fill(-Infinity))
+    console.log(recur(0, 0))    
 
-		function recur(n){
-			if(n < 4) return n
-			if(cache[n] !== undefined) return cache[n]
-			
-			let val = Math.max(Math.floor(n/2), recur(Math.floor(n/2)))
-					+ Math.max(Math.floor(n/3), recur(Math.floor(n/3))) 
-					+ Math.max(Math.floor(n/4), recur(Math.floor(n/4)))
-	
-			return cache[n] = Math.max(val, n)
-		}
+    function recur(i, val){
+        if(i === m || val > n) return 0
+        if(val === n) return 1
+        if(cache[i][val] !== -Infinity) return cache[i][val]
+
+        return cache[i][val] = recur(i, val + arr[i]) + recur(i + 1, val)
     }
 }
 if (process.env.USER === "arjun1237") {
-	runProgram(`45
-    2`);
+	runProgram(`4 3
+1 2 3`);
 } else {
 	process.stdin.resume();
 	process.stdin.setEncoding("ascii");
