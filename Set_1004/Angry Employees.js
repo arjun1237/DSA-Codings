@@ -13,7 +13,8 @@ function runProgram(input) {
         }
         seatsArr.sort((a, b) => a-b)
 
-        console.log(binary(seatsArr, ppl))
+        // console.log(binary(seatsArr, ppl))
+        console.log(predicate(seatsArr, ppl, 4))
 
     }
 
@@ -34,24 +35,13 @@ function runProgram(input) {
         return ans
     }
 
-    function predicate(seatsArr, ppl, mid){
+    function predicate(arr, ppl, mid){
+        let i = 0
+        let val = arr[i++]
         ppl--
-        let i = 1
-        while(i < seatsArr.length){
-            if(ppl === 0){
-                return true
-            }
-            let val = seatsArr[i-1] + mid 
-            while(val > seatsArr[i]){
-                i++
-                if(i === seatsArr.length){
-                    return false
-                }
-            }
-            ppl-- // 1
-            i++ 
+        while(true){
+            
         }
-        return ppl === 0
     }
 }
 
@@ -59,10 +49,10 @@ if (process.env.USER === "arjun1237") {
 	runProgram(`1
     5 3
     1
-    5
-    6
-    10
-    13`);
+    2
+    8
+    4
+    9`);
 } else {
 	process.stdin.resume();
 	process.stdin.setEncoding("ascii");
