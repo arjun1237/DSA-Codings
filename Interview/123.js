@@ -131,9 +131,29 @@ function throttle(cb, wait){
 
 
 
+function deb(cb, delay){
+    let debounce
 
+    return function(){
+        if(debounce){
+            clearTimeout(debounce)
+        }
+        debounce = setTimeout(() => {
+            cb.apply(this, arguments)
+        }, delay)
+    }
+}
 
+function throttle(cb, wait){
+    let time = Date.now()
 
+    return function(){
+        if(Date.now() > time + wait){
+            time = Date.now()
+            cb.apply(this, arguments)
+        }
+    }
+}
 
 
 
